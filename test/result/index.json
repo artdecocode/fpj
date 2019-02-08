@@ -1,0 +1,45 @@
+// finds the package
+test
+
+/* expected */
+{
+  "entry": "test/fixture/node_modules/test/index.js",
+  "packageJson": "test/fixture/node_modules/test/package.json",
+  "packageName": "test",
+  "version": "1.0.0-test"
+}
+/**/
+
+// resolve the package's main in a DIRECTORY
+test4
+
+/* expected */
+{
+  "entry": "test/fixture/node_modules/test4/build/index.js",
+  "packageJson": "test/fixture/node_modules/test4/package.json",
+  "packageName": "test4",
+  "hasMain": true,
+  "version": "1.0.0-test"
+}
+/**/
+
+// throws when main does not exist
+test2
+
+/* error */
+The exported module in package test2 does not exist.
+/**/
+
+// throws when main in the dir does not exist
+test3
+
+/* error */
+The exported module in package test3 does not exist.
+/**/
+
+// throws when cannot parse package.json
+test5
+
+/* error */
+Could not parse test/fixture/node_modules/test5/package.json.
+/**/
