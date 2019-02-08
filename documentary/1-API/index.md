@@ -8,18 +8,18 @@ import fpj from 'fpj'
 
 %~%
 
-```## fpj
+```## async fpj => FPJReturn
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["dirname", "string"],
+  ["packageName", "string"]
 ]
 ```
 
-Call this function to get the result you want.
+Returns the resolved entry point to the package. The preference will be given to the `module` field specified in the `package.json`. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
 
 %TYPEDEF types/index.xml%
 
 %EXAMPLE: example/example.js, ../src => fpj%
-%FORK example example/example%
+%FORK-js example example/example%
 
 %~%

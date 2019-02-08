@@ -1,10 +1,19 @@
 <types>
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+  <type name="FPJReturn" desc="The return type of the program.">
+    <prop string name="entry">
+      The location of the package's entry file. The preference is given to the `module` field.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop string name="packageJson">
+      The path to the package.json file itself.
+    </prop>
+    <prop string name="version">
+      The version of the package.
+    </prop>
+    <prop string name="packageName">
+      The name of the resolved package.
+    </prop>
+    <prop opt boolean name="hasMain">
+      Whether the entry is the `main` rather than `module`.
     </prop>
   </type>
 </types>

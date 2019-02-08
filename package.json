@@ -1,7 +1,7 @@
 {
   "name": "fpj",
   "version": "0.0.0",
-  "description": "Resolves The Location Of The Package.Json File By Traversing The File System Up Starting From Given Path.",
+  "description": "Resolves The Location Of The Package.Json File For The Given Dependency By Traversing The File System Up Starting From Given Path.",
   "main": "build/index.js",
   "module": "src/index.js",
   "scripts": {
@@ -29,7 +29,11 @@
     "url": "git://github.com/artdecocode/fpj.git"
   },
   "keywords": [
-    "fpj"
+    "fpj",
+    "find",
+    "package.json",
+    "location",
+    "resolve"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
