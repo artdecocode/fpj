@@ -1,6 +1,6 @@
 {
   "name": "fpj",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Resolves The Location Of The Package.Json File For The Given Dependency By Traversing The File System Up Starting From Given Path.",
   "main": "build/index.js",
   "module": "src/index.js",
