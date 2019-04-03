@@ -19,7 +19,7 @@ Returns the resolved entry point to the package. The preference will be given to
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example/example.js, ../src => fpj%
-%FORK-js example example/example%
+%EXAMPLE: example, ../src => fpj%
+%FORK-js example%
 
 %~%

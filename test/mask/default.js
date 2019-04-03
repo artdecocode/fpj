@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import findPackageJson from '../../src'
 
 const TS = makeTestSuite('test/result/index.json', {

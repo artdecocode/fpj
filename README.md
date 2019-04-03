@@ -63,12 +63,12 @@ import { dirname } from 'path'
 ```js
 { entry: 'node_modules/zoroaster/build/index.js',
   packageJson: 'node_modules/zoroaster/package.json',
-  version: '3.6.6',
+  version: '3.11.2',
   packageName: 'zoroaster',
   hasMain: true }
 { entry: 'node_modules/@wrote/read/src/index.js',
   packageJson: 'node_modules/@wrote/read/package.json',
-  version: '1.0.2',
+  version: '1.0.3',
   packageName: '@wrote/read' }
 ```
 
@@ -83,18 +83,14 @@ import { dirname } from 'path'
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
-    <th>
-      © <a href="https://artd.eco">Art Deco</a>  
-      2019
-    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a>   2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 
