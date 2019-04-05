@@ -1,6 +1,7 @@
 import { join, relative, resolve, dirname } from 'path'
 import exists from '@wrote/exists'
 import read from '@wrote/read'
+import resolveDep from 'resolve-dependency'
 
 /**
  * Finds the location of the `package.json` for the given dependency in the directory, and its entry file.
@@ -8,23 +9,25 @@ import read from '@wrote/read'
  * @param {string} name The name of the required package.
  * @returns {Promise<FPJReturn>}
  */
-const findPackageJson = async (dir, name, { fields } = {}) => {
+const findPackageJson = async (dir, name, opts = {}) => {
+  const { fields, soft = false } = opts
   const fold = join(dir, 'node_modules', name)
   const path = join(fold, 'package.json')
   const e = await exists(path)
   if (e) {
-    const res = await findEntry(path, fields)
+    const res = await findEntry(path, fields, soft)
     if (res === undefined)
       throw new Error(`The package ${relative('', path)} does export the module.`)
-    else if (res === null)
-      throw new Error(`The exported module in package ${name} does not exist.`)
-    const { entry, version, packageName, main, ...rest } = res
+    else if (!res.entryExists && !soft)
+      throw new Error(`The exported module ${res.main} in package ${name} does not exist.`)
+    const { entry, version, packageName, main, entryExists, ...rest } = res
     return {
       entry: relative('', entry),
       packageJson: relative('', path),
-      version,
+      ...(version ? { version } : {}),
       packageName,
       ...(main ? { hasMain: true } : {}),
+      ...(!entryExists ? { entryExists: false } : {}),
       ...rest,
     }
   }
@@ -56,15 +59,14 @@ export const findEntry = async (path, fields = []) => {
   const resolved = mod || main
   if (!resolved) return undefined
   let entry = join(dirname(path), resolved)
-  const stat = await exists(entry)
-  if (!stat) return null
-  if (stat.isDirectory()) {
-    const tt = join(entry, 'index.js')
-    const e2 = await exists(tt)
-    if (!e2) return null
-    entry = tt
-  }
-  return { entry, version, packageName, main: !mod && main, ...rest }
+  let r
+  try {
+    ({ path: r } = await resolveDep(entry))
+    entry = r
+  } catch (err) {/* does not exist */}
+  return { entry, version, packageName, main: !mod && main,
+    entryExists: !!r,
+    ...rest }
 }
 
 export default findPackageJson
@@ -74,7 +76,8 @@ export default findPackageJson
  * @typedef {Object} FPJReturn The return type of the program.
  * @prop {string} entry The location of the package's entry file. The preference is given to the `module` field.
  * @prop {string} packageJson The path to the package.json file itself.
- * @prop {string} version The version of the package.
+ * @prop {string} [version] The version of the package.
  * @prop {string} packageName The name of the resolved package.
  * @prop {boolean} [hasMain] Whether the entry is the `main` rather than `module`.
+ * @prop {boolean} [hasEntry] In soft mode, will be set to `false` if the entry file does not exist.
  */

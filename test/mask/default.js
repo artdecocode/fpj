@@ -3,7 +3,7 @@ import findPackageJson from '../../src'
 
 const TS = makeTestSuite('test/result/index.json', {
   async getResults(input) {
-    const res = await findPackageJson('test/fixture', input, { fields: this.fields })
+    const res = await findPackageJson('test/fixture', input, { fields: this.fields, soft: this.soft })
     return res
   },
   jsonProps: ['expected', 'fields'],

@@ -28,6 +28,23 @@ test
 }
 /**/
 
+// does not throw in soft mode
+test2
+
+/* soft */
+true
+/**/
+
+/* expected */
+{
+  "entry": "test/fixture/node_modules/test2/index.js",
+  "packageJson": "test/fixture/node_modules/test2/package.json",
+  "packageName": "test",
+  "entryExists": false,
+  "hasMain": true
+}
+/**/
+
 // resolve the package's main in a DIRECTORY
 test4
 
@@ -45,14 +62,14 @@ test4
 test2
 
 /* error */
-The exported module in package test2 does not exist.
+The exported module index.js in package test2 does not exist.
 /**/
 
 // throws when main in the dir does not exist
 test3
 
 /* error */
-The exported module in package test3 does not exist.
+The exported module build in package test3 does not exist.
 /**/
 
 // throws when cannot parse package.json
