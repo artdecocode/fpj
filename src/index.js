@@ -8,19 +8,24 @@ import read from '@wrote/read'
  * @param {string} name The name of the required package.
  * @returns {Promise<FPJReturn>}
  */
-const findPackageJson = async (dir, name) => {
+const findPackageJson = async (dir, name, { fields } = {}) => {
   const fold = join(dir, 'node_modules', name)
   const path = join(fold, 'package.json')
   const e = await exists(path)
   if (e) {
-    const res = await findEntry(path)
+    const res = await findEntry(path, fields)
     if (res === undefined)
       throw new Error(`The package ${relative('', path)} does export the module.`)
     else if (res === null)
       throw new Error(`The exported module in package ${name} does not exist.`)
-    const { entry, version, packageName, main } = res
+    const { entry, version, packageName, main, ...rest } = res
     return {
-      entry: relative('', entry), packageJson: relative('', path), version, packageName, ...(main ? { hasMain: true } : {}),
+      entry: relative('', entry),
+      packageJson: relative('', path),
+      version,
+      packageName,
+      ...(main ? { hasMain: true } : {}),
+      ...rest,
     }
   }
   if (dir == '/' && !e)
@@ -30,11 +35,21 @@ const findPackageJson = async (dir, name) => {
 
 /**
  * Finds the path to the entry based on package.json file. */
-export const findEntry = async (path) => {
+export const findEntry = async (path, fields = []) => {
   const f = await read(path)
-  let mod, version, packageName, main
+  let mod, version, packageName, main, rest
   try {
-    ({ 'module': mod, 'version': version, 'name': packageName, 'main': main } = JSON.parse(f))
+    ({
+      'module': mod,
+      'version': version,
+      'name': packageName,
+      'main': main,
+      ...rest
+    } = JSON.parse(f))
+    rest = fields.reduce((acc, current) => {
+      acc[current] = rest[current]
+      return acc
+    }, {})
   } catch (err) {
     throw new Error(`Could not parse ${path}.`)
   }
@@ -49,7 +64,7 @@ export const findEntry = async (path) => {
     if (!e2) return null
     entry = tt
   }
-  return { entry, version, packageName, main: !mod && main }
+  return { entry, version, packageName, main: !mod && main, ...rest }
 }
 
 export default findPackageJson

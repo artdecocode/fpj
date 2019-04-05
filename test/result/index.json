@@ -10,6 +10,24 @@ test
 }
 /**/
 
+// fetches additional fields
+test
+
+/* fields */
+["additional", "additional2"]
+/**/
+
+/* expected */
+{
+  "entry": "test/fixture/node_modules/test/index.js",
+  "packageJson": "test/fixture/node_modules/test/package.json",
+  "packageName": "test",
+  "version": "1.0.0-test",
+  "additional": "hello",
+  "additional2": "world"
+}
+/**/
+
 // resolve the package's main in a DIRECTORY
 test4
 
