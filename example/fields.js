@@ -6,7 +6,7 @@ import { dirname } from 'path'
   const zoroaster = await fpj(
     dirname('example/example.js'),
     'zoroaster',
-    { fields: ['author', 'bin'] },
+    { fields: ['license', 'bin'] },
   )
   console.log(zoroaster)
 })()

@@ -98,7 +98,7 @@ import { dirname } from 'path'
   const zoroaster = await fpj(
     dirname('example/example.js'),
     'zoroaster',
-    { fields: ['author', 'bin'] },
+    { fields: ['license', 'bin'] },
   )
   console.log(zoroaster)
 })()
@@ -108,7 +108,9 @@ import { dirname } from 'path'
   packageJson: 'node_modules/zoroaster/package.json',
   version: '3.11.4',
   packageName: 'zoroaster',
-  hasMain: true }
+  hasMain: true,
+  license: 'MIT',
+  bin: { zoroaster: 'build/bin/zoroaster.js' } }
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true" width="25"></a></p>

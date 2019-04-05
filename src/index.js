@@ -36,7 +36,7 @@ const findPackageJson = async (dir, name, opts = {}) => {
   }
   if (dir == '/' && !e)
     throw new Error(`Package.json for module ${name} not found.`)
-  return findPackageJson(join(resolve(dir), '..'), name)
+  return findPackageJson(join(resolve(dir), '..'), name, opts)
 }
 
 /**
