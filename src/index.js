@@ -7,6 +7,9 @@ import resolveDep from 'resolve-dependency'
  * Finds the location of the `package.json` for the given dependency in the directory, and its entry file.
  * @param {string} dir The path to the directory where the requiring file is located.
  * @param {string} name The name of the required package.
+ * @param {FPJConfig} opts The options for `fpj`.
+ * @param {Array<string>} [opts.fields] Any additional fields from `package.json` file to return.
+ * @param {boolean} [opts.soft=false] If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_. Default `false`.
  * @returns {Promise<FPJReturn>}
  */
 const findPackageJson = async (dir, name, opts = {}) => {
@@ -73,11 +76,15 @@ export default findPackageJson
 
 /* documentary types/index.xml */
 /**
+ * @typedef {Object} FPJConfig The options for `fpj`.
+ * @prop {Array<string>} [fields] Any additional fields from `package.json` file to return.
+ * @prop {boolean} [soft=false] If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_. Default `false`.
+ *
  * @typedef {Object} FPJReturn The return type of the program.
  * @prop {string} entry The location of the package's entry file. The preference is given to the `module` field.
  * @prop {string} packageJson The path to the package.json file itself.
  * @prop {string} [version] The version of the package.
  * @prop {string} packageName The name of the resolved package.
  * @prop {boolean} [hasMain] Whether the entry is the `main` rather than `module`.
- * @prop {boolean} [hasEntry] In soft mode, will be set to `false` if the entry file does not exist.
+ * @prop {boolean} [entryExists] In soft mode, will be set to `false` if the entry file does not exist.
  */
