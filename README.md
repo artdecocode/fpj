@@ -15,8 +15,8 @@ yarn add -E fpj
 - [`async fpj(dirname: string, packageName: string, opts?: FPJConfig): FPJReturn`](#async-fpjdirname-stringpackagename-stringopts-fpjconfig-fpjreturn)
   * [`FPJConfig`](#type-fpjconfig)
   * [`FPJReturn`](#type-fpjreturn)
-  * [Fields](#fields)
-  * [Soft Mode](#soft-mode)
+- [Fields](#fields)
+- [Soft Mode](#soft-mode)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -33,7 +33,9 @@ import fpj from 'fpj'
 
 ## `async fpj(`<br/>&nbsp;&nbsp;`dirname: string,`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`opts?: FPJConfig,`<br/>`): FPJReturn`
 
-Returns the resolved entry point to the package. The preference will be given to the `module` field specified in the `package.json`. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
+Returns the resolved entry point to the package. It will start checking for the presence of packages using Node's algorithm by resolving the `node_modules` folder first inside of the given _dirname_, then if not found, traverse up and repeat, until root of the OS is reached.
+
+The preference of the `entry` output will be given to the `module` field specified in the _package.json_. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
 
 __<a name="type-fpjconfig">`FPJConfig`</a>__: The options for `fpj`.
 
@@ -42,16 +44,7 @@ __<a name="type-fpjconfig">`FPJConfig`</a>__: The options for `fpj`.
 | fields | _Array&lt;string&gt;_ | Any additional fields from `package.json` file to return.                                                                                               | -       |
 | soft   | _boolean_             | If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_. | `false` |
 
-__<a name="type-fpjreturn">`FPJReturn`</a>__: The return type of the program.
-
-|       Name       |   Type    |                                       Description                                        |
-| ---------------- | --------- | ---------------------------------------------------------------------------------------- |
-| __entry*__       | _string_  | The location of the package's entry file. The preference is given to the `module` field. |
-| __packageJson*__ | _string_  | The path to the package.json file itself.                                                |
-| __packageName*__ | _string_  | The name of the resolved package.                                                        |
-| version          | _string_  | The version of the package.                                                              |
-| hasMain          | _boolean_ | Whether the entry is the `main` rather than `module`.                                    |
-| entryExists      | _boolean_ | In soft mode, will be set to `false` if the entry file does not exist.                   |
+_For example, the `package.json` files and meta information for 2 packages can be fetched using the following example:_
 
 ```js
 /* yarn example/ */
@@ -71,6 +64,9 @@ import { dirname } from 'path'
   console.log(read)
 })()
 ```
+
+_FPJ gives preference to the `module` field and will report it as the entry if it exists. Otherwise, the `main` is used with the `hasMain` property set to true:_
+
 ```js
 { entry: 'node_modules/zoroaster/build/index.js',
   packageJson: 'node_modules/zoroaster/package.json',
@@ -83,9 +79,20 @@ import { dirname } from 'path'
   packageName: '@wrote/read' }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true" width="25"></a></p>
+__<a name="type-fpjreturn">`FPJReturn`</a>__: The return type of the program.
 
-### Fields
+|       Name       |   Type    |                                       Description                                        |
+| ---------------- | --------- | ---------------------------------------------------------------------------------------- |
+| __entry*__       | _string_  | The location of the package's entry file. The preference is given to the `module` field. |
+| __packageJson*__ | _string_  | The path to the package.json file itself.                                                |
+| __packageName*__ | _string_  | The name of the resolved package.                                                        |
+| version          | _string_  | The version of the package.                                                              |
+| hasMain          | _boolean_ | Whether the entry is the `main` rather than `module`.                                    |
+| entryExists      | _boolean_ | In soft mode, will be set to `false` if the entry file does not exist.                   |
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
+
+## Fields
 
 Any additional fields from `package.json` that need to be present in the output can be specified in the `fields` property.
 
@@ -113,9 +120,9 @@ import { dirname } from 'path'
   bin: { zoroaster: 'build/bin/zoroaster.js' } }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
-### Soft Mode
+## Soft Mode
 
 When a package exports either a main or a module fields, `fpj` will check for their existence to resolve the path to the entry. When the entry does not exist, by default an error will be thrown. To disable the error, and add the `entryExists: false` to the output, the _Soft Mode_ can be activated.
 
