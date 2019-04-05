@@ -12,7 +12,7 @@ import fpj from 'fpj'
 [
   ["dirname", "string"],
   ["packageName", "string"],
-  ["opts", "FPJConfig"],
+  ["opts?", "FPJConfig"]
 ]
 ```
 

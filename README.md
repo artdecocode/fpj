@@ -12,6 +12,9 @@ yarn add -E fpj
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
+- [`async fpj(dirname: string, packageName: string, opts?: FPJConfig): FPJReturn`](#async-fpjdirname-stringpackagename-stringopts-fpjconfig-fpjreturn)
+  * [`FPJConfig`](#type-fpjconfig)
+  * [`FPJReturn`](#type-fpjreturn)
   * [Fields](#fields)
   * [Soft Mode](#soft-mode)
 - [Copyright](#copyright)
@@ -28,13 +31,7 @@ import fpj from 'fpj'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-```## async fpj => FPJReturn
-[
-  ["dirname", "string"],
-  ["packageName", "string"],
-  ["opts", "FPJConfig"],
-]
-```
+## `async fpj(`<br/>&nbsp;&nbsp;`dirname: string,`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`opts?: FPJConfig,`<br/>`): FPJReturn`
 
 Returns the resolved entry point to the package. The preference will be given to the `module` field specified in the `package.json`. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
 
