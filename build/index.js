@@ -83,10 +83,10 @@ module.exports=findPackageJson
  * @typedef {Object} FPJReturn The return type of the program.
  * @prop {string} entry The location of the package's entry file. The preference is given to the `module` field.
  * @prop {string} packageJson The path to the package.json file itself.
- * @prop {string} [version] The version of the package.
  * @prop {string} packageName The name of the resolved package.
+ * @prop {string} [version] The version of the package.
  * @prop {boolean} [hasMain] Whether the entry is the `main` rather than `module`.
- * @prop {boolean} [hasEntry] In soft mode, will be set to `false` if the entry file does not exist.
+ * @prop {boolean} [entryExists] In soft mode, will be set to `false` if the entry file does not exist.
  */
 
 

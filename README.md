@@ -48,8 +48,8 @@ __<a name="type-fpjreturn">`FPJReturn`</a>__: The return type of the program.
 | ---------------- | --------- | ---------------------------------------------------------------------------------------- |
 | __entry*__       | _string_  | The location of the package's entry file. The preference is given to the `module` field. |
 | __packageJson*__ | _string_  | The path to the package.json file itself.                                                |
-| version          | _string_  | The version of the package.                                                              |
 | __packageName*__ | _string_  | The name of the resolved package.                                                        |
+| version          | _string_  | The version of the package.                                                              |
 | hasMain          | _boolean_ | Whether the entry is the `main` rather than `module`.                                    |
 | entryExists      | _boolean_ | In soft mode, will be set to `false` if the entry file does not exist.                   |
 

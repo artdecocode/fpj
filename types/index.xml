@@ -14,11 +14,11 @@
     <prop string name="packageJson">
       The path to the package.json file itself.
     </prop>
-    <prop opt string name="version">
-      The version of the package.
-    </prop>
     <prop string name="packageName">
       The name of the resolved package.
+    </prop>
+    <prop opt string name="version">
+      The version of the package.
     </prop>
     <prop opt boolean name="hasMain">
       Whether the entry is the `main` rather than `module`.
