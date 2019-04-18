@@ -59,9 +59,14 @@ const findPackageJson = async (dir, name, opts = {}) => {
   } catch (err) {
     throw new Error(`Could not parse ${path}.`)
   }
-  const resolved = mod || main
-  if (!resolved) return undefined
-  let entry = join(dirname(path), resolved)
+  const dir = dirname(path)
+  let resolved = mod || main
+  if (!resolved) {
+    const indexExists = await exists(join(dir, 'index.js'))
+    if (!indexExists) return undefined
+    resolved = main = 'index.js'
+  }
+  let entry = join(dir, resolved)
   let r
   try {
     ({ path: r } = await resolveDep(entry))
