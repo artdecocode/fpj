@@ -1,3 +1,9 @@
+## 18 April 2019
+
+### [1.2.0](https://github.com/artdecocode/fpj/compare/v1.1.0...v1.2.0)
+
+- [feature] Resolve packages without `main` but with `index.js`.
+
 ## 5 April 2019
 
 ### [1.1.0](https://github.com/artdecocode/fpj/compare/v1.0.1...v1.1.0)
