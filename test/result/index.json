@@ -78,3 +78,16 @@ test5
 /* error */
 Could not parse test/fixture/node_modules/test5/package.json.
 /**/
+
+// finds the package without main
+no-main
+
+/* expected */
+{
+  "hasMain": true,
+  "entry": "test/fixture/node_modules/no-main/index.js",
+  "packageJson": "test/fixture/node_modules/no-main/package.json",
+  "packageName": "no-main",
+  "version": "1.0.0"
+}
+/**/
