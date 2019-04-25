@@ -20,7 +20,7 @@ Returns the resolved entry point to the package. It will start checking for the 
 
 The preference of the `entry` output will be given to the `module` field specified in the _package.json_. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
 
-%TYPEDEF types/index.xml FPJConfig%
+%TYPEDEF types/index.xml Config%
 
 _For example, the `package.json` files and meta information for 2 packages can be fetched using the following example:_
 
@@ -30,6 +30,6 @@ _FPJ gives preference to the `module` field and will report it as the entry if i
 
 %FORK-js example%
 
-%TYPEDEF types/index.xml FPJReturn%
+%TYPEDEF types/index.xml Return%
 
 %~%

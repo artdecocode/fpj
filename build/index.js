@@ -7,10 +7,10 @@ let resolveDep = require('resolve-dependency'); if (resolveDep && resolveDep.__e
  * Finds the location of the `package.json` for the given dependency in the directory, and its entry file.
  * @param {string} dir The path to the directory where the requiring file is located.
  * @param {string} name The name of the required package.
- * @param {!_fpj.FPJConfig} opts The options for `fpj`.
+ * @param {!_fpj.Config} opts The options for `fpj`.
  * @param {!Array<string>} [opts.fields] Any additional fields from `package.json` file to return.
  * @param {boolean} [opts.soft=false] If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_. Default `false`.
- * @returns {!Promise<!_fpj.FPJReturn>}
+ * @returns {!Promise<!_fpj.Return>}
  */
 const findPackageJson = async (dir, name, opts = {}) => {
   const { fields, soft = false } = opts
@@ -24,7 +24,7 @@ const findPackageJson = async (dir, name, opts = {}) => {
     else if (!res.entryExists && !soft)
       throw new Error(`The exported module ${res.main} in package ${name} does not exist.`)
     const { entry, version, packageName, main, entryExists, ...rest } = res
-    const result = /** @type {!_fpj.FPJReturn} */ ({
+    const result = /** @type {!_fpj.Return} */ ({
       entry: relative('', entry),
       packageJson: relative('', path),
       ...(version ? { version } : {}),
@@ -86,21 +86,21 @@ module.exports=findPackageJson
 /* documentary types/index.xml */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {_fpj.FPJConfig} FPJConfig The options for `fpj`.
+ * @typedef {_fpj.Config} Config The options for `fpj`.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} _fpj.FPJConfig The options for `fpj`.
+ * @typedef {Object} _fpj.Config The options for `fpj`.
  * @prop {!Array<string>} [fields] Any additional fields from `package.json` file to return.
  * @prop {boolean} [soft=false] If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_. Default `false`.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {_fpj.FPJReturn} FPJReturn The return type of the program.
+ * @typedef {_fpj.Return} Return The return type of the program.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} _fpj.FPJReturn The return type of the program.
+ * @typedef {Object} _fpj.Return The return type of the program.
  * @prop {string} entry The location of the package's entry file. The preference is given to the `module` field.
  * @prop {string} packageJson The path to the package.json file itself.
  * @prop {string} packageName The name of the resolved package.

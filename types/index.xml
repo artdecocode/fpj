@@ -1,5 +1,5 @@
 <types namespace="_fpj">
-  <type name="FPJConfig" desc="The options for `fpj`.">
+  <type name="Config" desc="The options for `fpj`.">
     <prop opt type="!Array<string>" name="fields">
       Any additional fields from `package.json` file to return.
     </prop>
@@ -7,7 +7,7 @@
       If the entry export (main or module) does not exist, `soft` mode will not throw an error, but add the `hasEntry` property to the output set to _false_.
     </prop>
   </type>
-  <type name="FPJReturn" desc="The return type of the program.">
+  <type name="Return" desc="The return type of the program.">
     <prop string name="entry">
       The location of the package's entry file. The preference is given to the `module` field.
     </prop>
