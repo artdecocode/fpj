@@ -1,3 +1,9 @@
+## 25 April 2019
+
+### [1.3.0](https://github.com/artdecocode/fpj/compare/v1.2.1...v1.3.0)
+
+- [externs] Add externs and cast the return type for _GCC_.
+
 ## 18 April 2019
 
 ### [1.2.1](https://github.com/artdecocode/fpj/compare/v1.2.0...v1.2.1)
