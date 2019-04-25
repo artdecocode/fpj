@@ -1,6 +1,6 @@
-<types>
+<types namespace="_fpj">
   <type name="FPJConfig" desc="The options for `fpj`.">
-    <prop opt type="Array<string>" name="fields">
+    <prop opt type="!Array<string>" name="fields">
       Any additional fields from `package.json` file to return.
     </prop>
     <prop boolean name="soft" default="false">
