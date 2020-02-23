@@ -72,7 +72,7 @@ test3
 The exported module build in package test3 does not exist.
 /**/
 
-// throws when cannot parse package.json
+// !throws when cannot parse package.json
 test5
 
 /* error */

@@ -1,7 +1,9 @@
-import { join, relative, resolve, dirname } from 'path'
+import { join, relative, resolve, dirname, parse } from 'path'
 import exists from '@wrote/exists'
 import read from '@wrote/read'
 import resolveDep from 'resolve-dependency'
+
+let ROOT
 
 /**
  * Finds the location of the `package.json` for the given dependency in the directory, and its entry file.
@@ -13,6 +15,9 @@ import resolveDep from 'resolve-dependency'
  * @returns {!Promise<!_fpj.Return>}
  */
 const findPackageJson = async (dir, name, opts = {}) => {
+  if (!ROOT) {
+    ({ root: ROOT } = parse(process.cwd()))
+  }
   const { fields, soft = false } = opts
   const fold = join(dir, 'node_modules', name)
   const path = join(fold, 'package.json')
@@ -35,7 +40,7 @@ const findPackageJson = async (dir, name, opts = {}) => {
     })
     return result
   }
-  if (dir == '/' && !e)
+  if (dir == ROOT && !e)
     throw new Error(`Package.json for module ${name} not found.`)
   return findPackageJson(join(resolve(dir), '..'), name, opts)
 }
