@@ -1,7 +1,9 @@
-const { join, relative, resolve, dirname } = require('path');
+const { join, relative, resolve, dirname, parse } = require('path');
 let exists = require('@wrote/exists'); if (exists && exists.__esModule) exists = exists.default;
 let read = require('@wrote/read'); if (read && read.__esModule) read = read.default;
 let resolveDep = require('resolve-dependency'); if (resolveDep && resolveDep.__esModule) resolveDep = resolveDep.default;
+
+let ROOT
 
 /**
  * Finds the location of the `package.json` for the given dependency in the directory, and its entry file.
@@ -13,6 +15,9 @@ let resolveDep = require('resolve-dependency'); if (resolveDep && resolveDep.__e
  * @returns {!Promise<!_fpj.Return>}
  */
 const findPackageJson = async (dir, name, opts = {}) => {
+  if (!ROOT) {
+    ({ root: ROOT } = parse(process.cwd()))
+  }
   const { fields, soft = false } = opts
   const fold = join(dir, 'node_modules', name)
   const path = join(fold, 'package.json')
@@ -35,7 +40,7 @@ const findPackageJson = async (dir, name, opts = {}) => {
     })
     return result
   }
-  if (dir == '/' && !e)
+  if (dir == ROOT && !e)
     throw new Error(`Package.json for module ${name} not found.`)
   return findPackageJson(join(resolve(dir), '..'), name, opts)
 }
@@ -45,7 +50,7 @@ const findPackageJson = async (dir, name, opts = {}) => {
  * @param {string} path
  * @param {!Array<string>} fields
  */
-       const findEntry = async (path, fields = []) => {
+const findEntry = async (path, fields = []) => {
   const f = await read(path)
   let mod, version, packageName, main, rest
   try {
