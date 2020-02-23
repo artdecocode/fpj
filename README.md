@@ -1,6 +1,6 @@
 # fpj: **Find Package Json**
 
-[![npm version](https://badge.fury.io/js/fpj.svg)](https://npmjs.org/package/fpj)
+[![npm version](https://badge.fury.io/js/fpj.svg)](https://www.npmjs.com/package/fpj)
 
 `fpj` Resolves The Location Of The Package.Json File For The Given Dependency By Traversing The File System Up Starting From Given Path.
 
@@ -19,7 +19,9 @@ yarn add -E fpj
 - [Soft Mode](#soft-mode)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## API
 
@@ -29,15 +31,17 @@ The package is available by importing its default function:
 import fpj from 'fpj'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
-## `async fpj(`<br/>&nbsp;&nbsp;`dirname: string,`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`opts?: FPJConfig,`<br/>`): FPJReturn`
+## <code>async <ins>fpj</ins>(</code><sub><br/>&nbsp;&nbsp;`dirname: string,`<br/>&nbsp;&nbsp;`packageName: string,`<br/>&nbsp;&nbsp;`opts?: FPJConfig,`<br/></sub><code>): <i>FPJReturn</i></code>
 
 Returns the resolved entry point to the package. It will start checking for the presence of packages using Node's algorithm by resolving the `node_modules` folder first inside of the given _dirname_, then if not found, traverse up and repeat, until root of the OS is reached.
 
 The preference of the `entry` output will be given to the `module` field specified in the _package.json_. If the `main` is found instead, it will be indicated with `hasMain` property on the returned object.
 
-__<a name="type-_fpjconfig">`_fpj.Config`</a>__: The options for `fpj`.
+<strong><a name="type-_fpjconfig">`_fpj.Config`</a></strong>: The options for `fpj`.
 
 |  Name  |             Type              |                                                                       Description                                                                       | Default |
 | ------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
@@ -68,18 +72,22 @@ import { dirname } from 'path'
 _FPJ gives preference to the `module` field and will report it as the entry if it exists. Otherwise, the `main` is used with the `hasMain` property set to true:_
 
 ```js
-{ entry: 'node_modules/zoroaster/build/index.js',
-  packageJson: 'node_modules/zoroaster/package.json',
-  version: '3.13.0',
+{
+  entry: 'node_modules\\zoroaster\\depack\\index.js',
+  packageJson: 'node_modules\\zoroaster\\package.json',
+  version: '4.3.0',
   packageName: 'zoroaster',
-  hasMain: true }
-{ entry: 'node_modules/@wrote/read/src/index.js',
-  packageJson: 'node_modules/@wrote/read/package.json',
+  hasMain: true
+}
+{
+  entry: 'node_modules\\@wrote\\read\\src\\index.js',
+  packageJson: 'node_modules\\@wrote\\read\\package.json',
   version: '1.0.4',
-  packageName: '@wrote/read' }
+  packageName: '@wrote/read'
+}
 ```
 
-__<a name="type-_fpjreturn">`_fpj.Return`</a>__: The return type of the program.
+<strong><a name="type-_fpjreturn">`_fpj.Return`</a></strong>: The return type of the program.
 
 |       Name       |       Type       |                                       Description                                        |
 | ---------------- | ---------------- | ---------------------------------------------------------------------------------------- |
@@ -90,7 +98,9 @@ __<a name="type-_fpjreturn">`_fpj.Return`</a>__: The return type of the program.
 | hasMain          | <em>boolean</em> | Whether the entry is the `main` rather than `module`.                                    |
 | entryExists      | <em>boolean</em> | In soft mode, will be set to `false` if the entry file does not exist.                   |
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## Fields
 
@@ -111,16 +121,23 @@ import { dirname } from 'path'
 })()
 ```
 ```js
-{ entry: 'node_modules/zoroaster/build/index.js',
-  packageJson: 'node_modules/zoroaster/package.json',
-  version: '3.13.0',
+{
+  entry: 'node_modules\\zoroaster\\depack\\index.js',
+  packageJson: 'node_modules\\zoroaster\\package.json',
+  version: '4.3.0',
   packageName: 'zoroaster',
   hasMain: true,
-  license: 'MIT',
-  bin: { zoroaster: 'build/bin/zoroaster.js' } }
+  license: 'AGPL-3.0',
+  bin: {
+    zoroaster: 'depack/bin/zoroaster.js',
+    'zoroaster-dev': 'src/bin/index.js'
+  }
+}
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
 ## Soft Mode
 
@@ -141,34 +158,35 @@ import { dirname } from 'path'
 })()
 ```
 ```js
-{ entry: 'example/node_modules/myPackage/index.js',
-  packageJson: 'example/node_modules/myPackage/package.json',
+{
+  entry: 'example\\node_modules\\myPackage\\index.js',
+  packageJson: 'example\\node_modules\\myPackage\\package.json',
   version: '1.0.0',
   packageName: 'myPackage',
   hasMain: true,
-  entryExists: false }
+  entryExists: false
+}
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
+
 
 ## Copyright
 
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
-        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      <a href="https://www.artd.eco">
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a>   2019</th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
-          alt="Tech Nation Visa" />
-      </a>
-    </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a>   2020</th>
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>
